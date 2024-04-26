@@ -1,0 +1,21 @@
+.task-mini {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 1px 2px rgba(9, 30, 66, 0.1);
+    padding: 1rem;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.task-mini:hover {
+    background-color: #f4f5f7;
+}
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.task-description {
+    color: #34495e;
+}

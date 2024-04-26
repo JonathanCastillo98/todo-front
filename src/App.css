@@ -1,0 +1,19 @@
+/* General */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    /* Cambiado a border-box para incluir el relleno y el borde en el tamaño total */
+}
+
+/* Contenedor raíz */
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Ocultar desbordamiento horizontal */
+    background-color: #f4f4f4;
+}
