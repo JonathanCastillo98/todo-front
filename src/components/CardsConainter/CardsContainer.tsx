@@ -1,21 +1,23 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import TaskMini from "../TaskMini/TaskMini";
 import "./cardsContainer.css";
+import { ITask } from "../../interfaces/task.interface";
+import React from "react";
 
-const CardsContainer = ({ title, tasks, status, onRefresh }) => {
+type Props = {
+    title: string;
+    tasks: ITask[];
+    status: string;
+    onRefresh: () => void;
+}
+
+const CardsContainer = ({ title, tasks, status, onRefresh }: Props) => {
+
     const accessToken = localStorage.getItem("accessToken");
-    const [localTasks, setLocalTasks] = useState(tasks);
-
-    useEffect(() => {
-        setLocalTasks(tasks);
-    }, [tasks]);
-
-    const draggingOver = (e) => {
+    const draggingOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
     };
-
-    const onDrop = async (e) => {
+    const onDrop = async (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const taskId = e.dataTransfer.getData("itemID");
         try {
@@ -28,11 +30,6 @@ const CardsContainer = ({ title, tasks, status, onRefresh }) => {
                     },
                 }
             );
-            // Actualizar el estado local después de la acción de arrastrar y soltar
-            const updatedTasks = localTasks.map((task) =>
-                task.id === taskId ? { ...task, status } : task
-            );
-            setLocalTasks(updatedTasks);
             onRefresh();
         } catch (error) {
             console.error(error);
@@ -42,13 +39,12 @@ const CardsContainer = ({ title, tasks, status, onRefresh }) => {
     return (
         <div
             className="cards-container"
-            droppable="true"
             onDragOver={(e) => draggingOver(e)}
             onDrop={onDrop}
         >
             <div className="cards-header">{title}</div>
             <div className="tasks">
-                {localTasks.map((task) => (
+                {tasks.map((task) => (
                     <TaskMini key={task.id} task={task} />
                 ))}
             </div>

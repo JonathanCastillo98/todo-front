@@ -7,9 +7,9 @@ import CardsContainer from "../../../components/CardsConainter/CardsContainer";
 import "./dashboard.css";
 
 const Dashboard = () => {
-    const [todoTasks, setTodoTasks] = useState([]);
-    const [inProgressTasks, setInProgressTasks] = useState([]);
-    const [doneTasks, setDoneTasks] = useState([]);
+    const [todoTasks, setTodoTasks] = useState<ITask[]>([]);
+    const [inProgressTasks, setInProgressTasks] = useState<ITask[]>([]);
+    const [doneTasks, setDoneTasks] = useState<ITask[]>([]);
     const accessToken = localStorage.getItem("accessToken");
     const user = useSelector((store: AppStore) => store.user);
 
@@ -24,11 +24,9 @@ const Dashboard = () => {
                 }
             );
             const { tasks } = data;
-            const todoTasks = tasks.filter((task: ITask) => task.status === "CREATED");
-            const inProgressTasks = tasks.filter(
-                (task: ITask) => task.status === "IN_PROGRESS"
-            );
-            const doneTasks = tasks.filter((task: ITask) => task.status === "DONE");
+            const todoTasks: ITask[] = tasks.filter((task: ITask) => task.status === "TODO");
+            const inProgressTasks: ITask[] = tasks.filter((task: ITask) => task.status === "IN_PROGRESS");
+            const doneTasks: ITask[] = tasks.filter((task: ITask) => task.status === "DONE");
 
             setTodoTasks(todoTasks);
             setInProgressTasks(inProgressTasks);
@@ -53,22 +51,19 @@ const Dashboard = () => {
                 <CardsContainer
                     title={"TODO"}
                     tasks={todoTasks}
-                    status="CREATED"
-                    setTasks={setTodoTasks} // Pasar función para actualizar el estado local
+                    status="TODO"
                     onRefresh={getList}
                 />
                 <CardsContainer
                     title={"IN PROGRESS"}
                     tasks={inProgressTasks}
                     status="IN_PROGRESS"
-                    setTasks={setInProgressTasks} // Pasar función para actualizar el estado local
                     onRefresh={getList}
                 />
                 <CardsContainer
                     title={"DONE"}
                     tasks={doneTasks}
                     status="DONE"
-                    setTasks={setDoneTasks} // Pasar función para actualizar el estado local
                     onRefresh={getList}
                 />
             </div>
