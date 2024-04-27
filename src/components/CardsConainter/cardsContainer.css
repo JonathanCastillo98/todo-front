@@ -1,29 +1,33 @@
 .cards-container {
-    background-color: #ebecf0;
+    background-color: #f9fafb;
+    height: 40vw;
+    min-height: 400px;
     border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(9, 30, 66, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #e0e6ed;
     min-width: 350px;
-
 }
 
 .cards-header {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #ccc;
+    height: calc(10% - 1rem);
+    color: #2f4858;
 }
 
 .tasks {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    overflow-y: auto;
+    height: calc(80% - 1rem);
+    margin: 10px 0;
 }
 
 .add-task-btn {
-    background-color: #5aac44;
+    background-color: #4caf50;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -31,8 +35,11 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    max-height: 40px;
+    height: 10%;
+    font-family: 'Arial', sans-serif;
 }
 
 .add-task-btn:hover {
-    background-color: #4b9e2c;
+    background-color: #388e3c;
 }

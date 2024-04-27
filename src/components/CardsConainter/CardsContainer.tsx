@@ -2,7 +2,10 @@ import axios from "axios";
 import TaskMini from "../TaskMini/TaskMini";
 import "./cardsContainer.css";
 import { ITask } from "../../interfaces/task.interface";
-import React from "react";
+import React, { useState } from "react";
+import ModalCreateTask from "../ModalCreateTask/ModalCreateTask";
+import { AppStore } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 type Props = {
     title: string;
@@ -12,7 +15,8 @@ type Props = {
 }
 
 const CardsContainer = ({ title, tasks, status, onRefresh }: Props) => {
-
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const user = useSelector((store: AppStore) => store.user);
     const accessToken = localStorage.getItem("accessToken");
     const draggingOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -45,10 +49,15 @@ const CardsContainer = ({ title, tasks, status, onRefresh }: Props) => {
             <div className="cards-header">{title}</div>
             <div className="tasks">
                 {tasks.map((task) => (
-                    <TaskMini key={task.id} task={task} />
+                    <TaskMini key={task.id} task={task} onRefresh={onRefresh} />
                 ))}
             </div>
-            <button className="add-task-btn">+ Add task</button>
+            <button className="add-task-btn" onClick={() => setIsModalOpen(true)}>+ Add task</button>
+            {
+                isModalOpen && (
+                    <ModalCreateTask userId={user.id} status={status} setIsModalOpen={setIsModalOpen} onRefresh={onRefresh} />
+                )
+            }
         </div>
     );
 };
